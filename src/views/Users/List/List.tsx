@@ -1,45 +1,46 @@
-import React, { Component } from 'react';
+import React, { Component, useState,useEffect } from 'react';
 import {requestData} from '../../../services'
 import './List.css'
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import '../../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
+import {
+    Link
+} from 'react-router-dom';
 import {
     Container,
     Table,
-    Button
+    Button,
+    Row
 } from 'react-bootstrap';
 
-function List (userList: any){
-
+export default function List (userList: any){
+    const [user_array, set_user_array] = React.useState([]);
+    const [next_link, set_next_link] = React.useState();
+    useEffect(() => {
+        requestData('api/users?since=0').then((result: any)=>{
+        console.log(result)
+        set_user_array(result.data)
+        set_next_link(result.next_link)
+        console.log(user_array) })
+    },[])
     return(
     <div >
         <Container className='Container_list' >
-                <Button variant="light" onClick={() => requestData('api/users?since=0')}>Light</Button>
+                
             <h1 className='H1'>LISTA</h1>
-            <Table striped>
-                <thead>
-                    <th className='Th'>#</th>
-                    <th className='Th'>UserName</th>
-                    <th className='Th'># Repos</th>
-                    <th className='Th'>LINK</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td className='Td'>1</td>
-                        <td className='Td'>1</td>
-                        <td className='Td'>1</td>
-                        <td className='Td'>1</td>
-                    </tr>
-                    <tr>
-                        <td className='Td'>2</td>
-                        <td className='Td'>2</td>
-                        <td className='Td'>2</td>
-                        <td className='Td'>2</td>
-                    </tr>
-                    
-                </tbody>
-            </Table>
+                <BootstrapTable data={user_array} striped hover containerStyle={{paddingBottom:'5em'}}>
+                    <TableHeaderColumn isKey dataField='id' columnClassName='Td' className='Th'>ID</TableHeaderColumn>
+                    <TableHeaderColumn dataField='login' columnClassName='Td' className='Th' dataFormat={CellFormatter}></TableHeaderColumn>
+                </BootstrapTable>
+                <Row style={{justifyContent: 'flex-end',paddingBottom: '5em'}}>
+                    <Button variant="light" onClick={() => requestData(next_link)}>Next ></Button>
+                </Row>
         </Container>
     </div>
     )
 }
 
-export default List;
+function CellFormatter(cell:string) {
+    return (<Link to={'/Details/'+cell}>{cell}</Link>);
+}
+
