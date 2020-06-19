@@ -1,0 +1,14 @@
+.Th {
+    color: white;
+}
+.Td {
+    color: white;
+}
+.H1{
+    padding-bottom: 1em;
+    color: white;
+}
+.Container_list{
+    padding-top:2em;
+    width:70em;
+}
