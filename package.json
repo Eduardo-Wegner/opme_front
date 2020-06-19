@@ -2,7 +2,7 @@
   "name": "challenge_front_ts",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8080",
+  "proxy": "http://opme-hallenge.herokuapp.com",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -16,8 +16,10 @@
     "react-bootstrap": "^1.0.1",
     "react-bootstrap-table": "^4.3.1",
     "react-dom": "^16.13.1",
+    "react-js-pagination": "^3.0.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-spinners": "^0.8.3",
     "typescript": "^3.7.5"
   },
   "scripts": {
@@ -43,6 +45,8 @@
   },
   "devDependencies": {
     "@types/react-bootstrap-table": "^4.3.8",
+    "@types/react-js-pagination": "^3.0.3",
+    "@types/react-paginate": "^6.2.1",
     "@types/react-router-dom": "^5.1.5"
   }
 }

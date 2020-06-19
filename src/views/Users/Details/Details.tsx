@@ -7,10 +7,13 @@ import {
     Nav,
     Table
 } from 'react-bootstrap';
-import { useParams} from 'react-router-dom';
+import { css } from "@emotion/core";
+import ClipLoader from "react-spinners/ClipLoader";
+import {Repos} from '../index';
+import { useParams } from 'react-router-dom';
 
 function Details(user: any) {
-    let { userLogin } = useParams();
+    let {userLogin} = useParams();
     const [user_details, set_user_details] = React.useState({ id: '', login: '', html_url:''});
     useEffect(() => {
         requestData('/api/users/'+userLogin+'/details').then((result: any) => {
@@ -23,7 +26,7 @@ function Details(user: any) {
         <div>
         <Container className='Container_list'>
             <h1 className='H1'>{userLogin} Details:</h1>
-            <Table bordered style={{paddingTop:'5em'}}>
+            <Table bordered style={{paddingTop:'5em', paddingBottom:'2em'}}>
                 <tbody>
                     <tr>
                         <td className='Td'>Id:</td>
@@ -39,7 +42,9 @@ function Details(user: any) {
                     </tr>
                 </tbody>
             </Table>
+            
         </Container>
+        <Repos {...user_details} />
         </div>
     )
 }
